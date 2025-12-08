@@ -33,7 +33,6 @@ def preprocess_data(raw_df: pd.DataFrame):
 
 def predict(raw_df):
     model = joblib.load('model/Weather.joblib')
-    #data = np.expand_dims(np.array([sepal_l, sepal_w, petal_l, petal_w]), axis=0)
     data = preprocess_data(raw_df)
     predictions = model.predict(data)
     probability = model.predict_proba(data)
@@ -48,7 +47,6 @@ st.markdown('Це проста модель для передбачення, ч�
 st.header("Введіть погодні умови")
 col1, col2, col3 = st.columns(3)
 
-# Введення характеристик чашолистків
 with col1:
     raw_df['Location'] = st.selectbox(
         "Локація",
@@ -98,9 +96,7 @@ raw_df = raw_df[new_order]
 
 if st.button("Передбачення наявності дощу завтра"):
 #    # Викликаємо функцію прогнозування
-    print("6666666666666", raw_df.shape)
     result, proba = predict(raw_df)
-    
     
     # обираємо фон
     if result == "Yes":
@@ -120,7 +116,7 @@ if st.button("Передбачення наявності дощу завтра"
 
     bg_image = get_base64(bg_image_path)
     
-    # карточка передбачення
+    # картка передбачення
     st.markdown(
         f"""
         <div style="
